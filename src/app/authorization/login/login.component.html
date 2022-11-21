@@ -1,0 +1,20 @@
+<div style="display: flex; align-items: center; justify-content: center; ">
+    <mat-card style="width: 30%; margin-top: 10rem;">
+        <form [formGroup]="form" style="display: grid;">
+            <mat-form-field appearance="outline">
+                <input matInput type="text" formControlName="email" placeholder="email" autocomplete="off">
+                <mat-error *ngIf="form.controls.email.invalid">Pole nie może być puste.</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <input matInput type="text" formControlName="password" placeholder="password" autocomplete="off">
+                <mat-error *ngIf="form.controls.password.invalid">Pole nie może być puste.</mat-error>
+            </mat-form-field>
+            <button type="submit" mat-button color="primary" (submit)="Submit()" [disabled]="form.invalid">Potwierdz</button>
+        </form>
+        <button (click)="loginWithGoogle()" mat-raised-button class="google-login-btn">
+            Google
+        </button>  
+        <span style="color: red; display: flex; justify-content: center; margin-top: 1rem;" *ngIf="subValid">Taki użytkownik nie istnieje</span>
+        <span style="color: blue; display: flex; justify-content: center; margin-top: 1rem;">Created by Makym Horbach, Marian Kochodan</span>
+    </mat-card>
+</div>

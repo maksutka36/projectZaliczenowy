@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>Dodaj mehanika</h2>
+<mat-dialog-content class="mat-typography container">
+    <div class="form">
+        <div *ngFor="let mechanic of mechanics" >
+            <div class="panel">
+                <h2>{{mechanic.username}}</h2>
+                <button mat-mini-fab color="primary" (click)="addMechanic(mechanic)">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="form">
+        <div *ngFor="let mechanic of addMechanics" >
+            <div class="panel">
+                <h2>{{mechanic.username}}</h2>
+                <button mat-mini-fab color="primary" (click)="removeMechanic(mechanic)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end" >
+  <button mat-button [mat-dialog-close]="[addMechanics, mechanics]" cdkFocusInitial color="primary">Zmień</button>
+</mat-dialog-actions>

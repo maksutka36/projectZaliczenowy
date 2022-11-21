@@ -1,0 +1,31 @@
+<mat-spinner *ngIf="isLoading" style="display: flex; align-items: center; align-items: center;"></mat-spinner>
+<mat-accordion multi="true" *ngIf="posts.length > 0 && !isLoading">
+  <div *ngFor="let post of posts">
+    <mat-expansion-panel style="margin-bottom: 1rem;">
+      <mat-expansion-panel-header>
+        <p><b>Imię: </b>{{post.name}}&nbsp;&nbsp;</p>
+        <p><b>Nazwisko: </b>{{post.surname}}&nbsp;&nbsp;</p>
+        <p><b>Data początku: </b>{{post.startDate.slice(0,10)}}&nbsp;&nbsp;</p>
+        <p><b>Marka samochodu: </b>{{post.brand}}&nbsp;&nbsp;</p>
+      </mat-expansion-panel-header>
+      <p><b>Opis problemu:</b></p>
+      <p>{{post.problem}}</p>
+      <div *ngIf="post.comment">
+        <p><b>Komentarz:</b></p>
+        <p>{{post.comment}}</p>
+      </div>
+      <mat-action-row *ngIf="authService.isAuth">
+        <button mat-button color="primary" [routerLink]="['/edit', post.id]">EDIT</button>
+        <button mat-button color="warn" (click)="onDeleteClick(post.id)" *ngIf="role == 'ADMIN'">DELETE</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </div>
+  </mat-accordion>
+  <p class="mat-body-1" *ngIf="posts.length <= 0 && !isLoading" style="text-align: center;">No posts yet!</p>
+  <mat-paginator 
+  [length]="totalPosts"
+  [pageSize]="postPerPage"
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="onChangePage($event)"
+  *ngIf="posts.length > 0"
+  ></mat-paginator>

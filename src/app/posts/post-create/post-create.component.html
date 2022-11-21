@@ -1,0 +1,72 @@
+<mat-card>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <form [formGroup]="postForm" (submit)="onAddPost()" *ngIf="!isLoading">
+      <mat-form-field appearance="outline">
+        <input matInput type="text" formControlName="name" placeholder="Imię" autocomplete="off">
+        <mat-error *ngIf="postForm.controls.name.invalid">Pole nie może być puste.</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <input matInput type="text" formControlName="surname" placeholder="Nazwisko" autocomplete="off">
+        <mat-error *ngIf="postForm.controls.surname.invalid">Pole nie może być puste.</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <input matInput type="text" formControlName="phone" placeholder="Telefon" autocomplete="off">
+        <mat-error *ngIf="postForm.controls.phone.invalid">Pole nie może być puste.</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <input matInput type="text" formControlName="carNumber" placeholder="Numer samochodu" autocomplete="off">
+        <mat-error *ngIf="postForm.controls.carNumber.invalid">Pole nie może być puste.</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <input matInput type="text" formControlName="brand" placeholder="Marka samochodu" autocomplete="off">
+        <mat-error *ngIf="postForm.controls.brand.invalid">Pole nie może być puste.</mat-error>
+      </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status">
+          <mat-option value="Ogląd">Ogląd</mat-option>
+          <mat-option value="W ciagu naprawy">W ciagu naprawy</mat-option>
+          <mat-option value="Naprawiano">Naprawiano</mat-option>
+      </mat-select>
+  </mat-form-field>
+      <mat-form-field appearance="outline" style="grid-column: 1 / 3">
+        <textarea matInput rows="4" formControlName="problem" placeholder="Opis problemu" autocomplete="off"></textarea>
+        <mat-error *ngIf="postForm.controls.problem.invalid">Pole nie może być puste.</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline"  style="grid-column: 1 / 3">
+        <textarea matInput rows="4" formControlName="comment" placeholder="Komentarz" autocomplete="off"></textarea>
+      </mat-form-field>
+      <button mat-button (click)="openDialog()" type="button" style="height: 5rem; margin-bottom: 1rem;">Dodaj Mechaników</button>
+      <mat-chip-list
+      class="example-chip"
+      cdkDropList 
+      cdkDropListOrientation="horizontal">
+        <mat-chip
+          class="example-box"
+          cdkDrag
+          disabled="true"
+          *ngFor="let mechanic of addedMechanics">
+          {{mechanic.username}}
+        </mat-chip>
+      </mat-chip-list>
+    <mat-form-field appearance="outline">
+      <mat-label>Data rozpoczęcia</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="startDate" autocomplete="off">
+      <mat-hint>DD/MM/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Data zakończenia</mat-label>
+      <input matInput [matDatepicker]="picker1" formControlName="endDate" autocomplete="off">
+      <mat-hint>DD/MM/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="picker1" ></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+      <button 
+      mat-raised-button 
+      color="primary" 
+      type="submit" 
+      style="grid-column: 1 / 3" [disabled]="postForm.invalid" (click)="page()" >Zapisz</button>
+    </form>
+  </mat-card>
